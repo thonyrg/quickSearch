@@ -1,0 +1,43 @@
+<mat-card class="m-4">
+    <mat-card-header>
+        <mat-card-title>Quick search example</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="pl-3 pr-3">
+        <section class="text-right" [formGroup]="formGroup">
+            <div class="quick-search--wrapper">
+                <mat-form-field>
+                    <input matInput placeholder='Quick search' formControlName="qs">
+                </mat-form-field>
+                <mat-icon>search</mat-icon>
+            </div>
+
+            <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+            <div>
+                <table mat-table [dataSource]="postsDataProcessed" class="mat-elevation-z2 w-100" *ngIf="!loading">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Id </th>
+                        <td mat-cell *matCellDef="let element" class="text-center"> {{element.id}} </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="userId">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> User Id </th>
+                        <td mat-cell *matCellDef="let element" class="text-center"> {{element.userId}} </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef class="text-center"> Title </th>
+                        <td mat-cell *matCellDef="let element" class="text-left"> {{element.title}} </td>
+                    </ng-container>
+                    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div mat-footer-row class="w-100 p-4 text-center" *ngIf="!loading && postsDataProcessed.data.length === 0">
+                    <mat-card-subtitle>No results found</mat-card-subtitle>
+                </div>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+            </div>
+        </section>
+    </mat-card-content>
+</mat-card>

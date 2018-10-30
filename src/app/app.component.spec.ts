@@ -1,5 +1,10 @@
 import { TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
+import { QuickSearchModule } from './quick-search/quick-search.module';
+import { PostsService } from './shared/services/posts.service';
+
+export class PostsServiceStub {}
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +12,11 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [ QuickSearchModule ],
+      providers: [
+          HttpClientTestingModule,
+          { provide: PostsService, useClass: PostsServiceStub }
+        ]
     }).compileComponents();
   }));
 
@@ -20,12 +30,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('quickSearch');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to quickSearch!');
   });
 });
