@@ -1,5 +1,5 @@
 export class Posts {
-    userId: string;
+    userId: number;
     id: number;
     title: string;
     body: string;
